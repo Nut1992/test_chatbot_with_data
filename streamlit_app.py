@@ -98,7 +98,7 @@ if gemini_api_key:
     try:
     # Configure Gemini with the provided API Key
         genai.configure(api_key=gemini_api_key)
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-pro") #ชนิดของ gemini ที่ต้องการเรียก
         st.success("Gemini API Key successfully configured.")
     except Exception as e:
         st.error(f"An error occurred while setting up the Gemini model: {e}")
@@ -115,7 +115,7 @@ for role, message in st.session_state.chat_history:
 
 # Add a file uploader for CSV data
 st.subheader("Upload CSV for Analysis")
-uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"]) #ไฟท์ที่อัพโหลดได้
 if uploaded_file is not None:
     try:
     # Load the uploaded CSV file
@@ -140,7 +140,7 @@ if user_input := st.chat_input("Type your message here..."):
         try:
             if st.session_state.uploaded_data is not None and analyze_data_checkbox:
             # Check if user requested data analysis or insights
-                if "analyze" in user_input.lower() or "insight" in user_input.lower():
+                if "analyze" in user_input.lower() or "insight" in user_input.lower(): #ตัวเรียกว่าจะใช้งานต้องพิมพ์ analyze, insight
                     # Create a description of the data for the AI model
                     data_description = st.session_state.uploaded_data.describe().to_string()
                     prompt = f"Analyze the following dataset and provide insights {user_input} and return result only natural language. Don't send code and uses data from outside csv file :\n\n{data_description}" #เพิ่ม discrition เพื่อจูนคำตอบให้แม่นขึ้น
@@ -148,6 +148,7 @@ if user_input := st.chat_input("Type your message here..."):
                     # Generate AI response for the data analysis
                     response = model.generate_content(prompt)
                     bot_response = response.text
+
                     # Store and display the AI-generated analysis
                     st.session_state.chat_history.append(("assistant", bot_response))
                     st.chat_message("assistant").markdown(bot_response)
