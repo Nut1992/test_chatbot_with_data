@@ -10,7 +10,10 @@ A simple Streamlit app template for you to modify!
 
    ```
    $ pip install -r requirements.txt
-   ```
+   streamlit
+   google-generativeai
+   pandas
+   numpy
 
 2. Run the app
 
